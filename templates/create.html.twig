@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css">
+{% endblock %}
+
+{% block body %}
+    <div class="card" style="margin: 20px">
+        <div class="card-body">
+            {{ form_start(form) }}
+            {{ form_row(form.mediaName) }}
+            {{ form_row(form.companyName) }}
+            {{ form_row(form.budget) }}
+            <div class="form-group row">
+                <div class="col-12">
+                    {{ form_row(form.publishingDate) }}
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Создать</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+    <script>
+        $(document).ready(function() {
+            // you may need to change this code if you are not using Bootstrap Datepicker
+            $('.js-datepicker').datepicker({
+                format: 'yyyy-mm-dd'
+            });
+        });
+    </script>
+{% endblock %}

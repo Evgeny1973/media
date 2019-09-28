@@ -17,5 +17,9 @@ class Command
 	 */
 	public $mediaName;
 	public $budget;
+
+	/**
+	 * @var \DateTime | null
+	 */
 	public $publishingDate;
 }

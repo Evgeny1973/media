@@ -2,17 +2,16 @@
 
 {% block body %}
     <div class="controls" style="margin-bottom: 5px">
-        <a class="btn btn-success pull-right" style="margin-bottom: 5px" href="#">Внести запись</a>
+        <a class="btn btn-success pull-right" style="margin-bottom: 5px" href="{{ path('create_media')}}">Внести запись</a>
     </div>
     <div class="box">
         <table class="table table-bordered bg-white">
             <thead class="thead-dark">
-            <tr>
-            <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'Издание', 'mediaName') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Компания', 'companyName') }}</th>
-                <th>Бюджет</th>
-            </tr>
+            <th>{{ knp_pagination_sortable(pagination, 'Издание', 'mediaName') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Компания', 'companyName') }}</th>
+            <th>Бюджет</th>
+            <th>Дата публикации</th>
+            <th>Действия</th>
             </thead>
             <tbody>
             {% set token = csrf_token('delete') %}
@@ -21,6 +20,17 @@
                     <td>{{ media.mediaName }}</td>
                     <td>{{ media.companyName }}</td>
                     <td>{{ media.budget }}</td>
+                    <td>{{ media.publishingDate|date('d-m-Y') }}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Действия</button>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Редактировать</a>
+                                <a class="dropdown-item" href="{{ path('delete_media', {'media': media.id}) }}">Удалить</a>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

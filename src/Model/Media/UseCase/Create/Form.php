@@ -3,7 +3,7 @@
 namespace App\Model\Media\UseCase\Create;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,8 +27,11 @@ class Form extends AbstractType
 			->add('mediaName', TextType::class, [
 				'label' => 'Издание',
 			])
-			->add('publishingDate', DateTimeType::class, [
+			->add('publishingDate', DateType::class, [
 				'label' => 'Дата публикации',
+				'widget' => 'single_text',
+				'html5' => false,
+				'attr' => ['class' => 'js-datepicker', 'autocomplete' => 'off'],
 			])
 			->add('budget', TextType::class, [
 				'label' => 'Бюджет',

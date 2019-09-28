@@ -45,13 +45,20 @@ class MediaRepository
 		return $this->repository->findOneBy(['mediaName' => $name]);
 	}
 
-	public function all(int $page, int $limit,string $sort, string $direction)
+	public function all(int $page, int $limit, string $sort, string $direction)
 	{
 		$qb = $this->connection->createQueryBuilder()
-			->select('m.id', 'm.media_name AS mediaName',
-				'm.company_name AS companyName','m.budget')
+			->select(
+				'm.id',
+				'm.media_name AS mediaName',
+				'm.company_name AS companyName',
+				'm.budget',
+				'm.publishing_date AS publishingDate'
+			)
 			->from('medias', 'm');
+
 		$qb->orderBy($sort, $direction === 'asc' ? 'asc' : 'desc');
+
 		return $this->paginator->paginate($qb, $page, $limit);
 	}
 }

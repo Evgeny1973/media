@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Model\Media\Entity\Media;
+use App\Model\Media\UseCase\Create;
+use App\Model\Media\UseCase\Delete;
 use App\Model\Media\Entity\MediaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,16 +28,38 @@ class MediaController extends AbstractController
 	 */
 	public function all(Request $request)
 	{
-		$pagination = $this->medias->all($request->query->getInt('page', 1), self::PER_PAGE, $request->query->get('sort', 'mediaName'), $request->query->get('direction', 'desc'));
+		$pagination = $this->medias->all($request->query->getInt('page', 1), self::PER_PAGE,
+			$request->query->get('sort', 'mediaName'), $request->query->get('direction', 'desc'));
 		return $this->render('medias.html.twig', ['pagination' => $pagination]);
 	}
 
 	/**
 	 * @Route("/create", name="create_media", methods={"GET", "POST"})
 	 */
-	public function create()
+	public function create(Request $request, Create\Handler $handler)
 	{
+		$command = new Create\Command;
+		$form = $this->createForm(Create\Form::class, $command);
+		$form->handleRequest($request);
 
+		if ($form->isSubmitted() && $form->isValid()) {
+			try {
+				$handler->handle($command);
+				return $this->redirectToRoute('all_medias');
+			} catch (\DomainException $e) {
+				return $this->redirectToRoute('all_medias');
+			}
+		}
+		return $this->render('create.html.twig', ['form' => $form->createView()]);
 	}
 
+	/**
+	 * @Route("/medias/{media}/delete", name="delete_media", methods={"GET"})
+	 */
+	public function delete(Media $media, Delete\Handler $handler)
+	{
+		$command = new Delete\Command($media);
+		$handler->handle($command);
+		return $this->redirectToRoute('all_medias');
+	}
 }
