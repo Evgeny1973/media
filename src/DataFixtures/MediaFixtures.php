@@ -18,7 +18,7 @@ class MediaFixtures extends AppFixtures
 
 	public function __construct(MediaRepository $medias)
 	{
-		$this->faker = Factory::create('ru_Ru');
+		$this->faker = Factory::create('ru_RU');
 
 		$this->medias = $medias;
 	}
@@ -27,7 +27,7 @@ class MediaFixtures extends AppFixtures
 	{
 		for ($i = 0; $i < 10; $i++) {
 			$media = new Media(Id::next(), $this->faker->jobTitle, $this->faker->company,
-				new \DateTimeImmutable(sprintf('+%s day', $i)));
+				new \DateTimeImmutable(sprintf('+%s day', $i)), random_int(5000, 350000));
 			$this->medias->add($media);
 		}
 		$manager->flush();

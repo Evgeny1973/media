@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="controls" style="margin-bottom: 5px">
+        <a class="btn btn-success pull-right" style="margin-bottom: 5px" href="#">Внести запись</a>
+    </div>
+    <div class="box">
+        <table class="table table-bordered bg-white">
+            <thead class="thead-dark">
+            <tr>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'Издание', 'mediaName') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Компания', 'companyName') }}</th>
+                <th>Бюджет</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set token = csrf_token('delete') %}
+            {% for media in pagination %}
+                <tr>
+                    <td>{{ media.mediaName }}</td>
+                    <td>{{ media.companyName }}</td>
+                    <td>{{ media.budget }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
