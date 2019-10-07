@@ -2,26 +2,26 @@
 
 namespace App\Model\Media\UseCase\Create;
 
+use App\Model\Flusher;
 use App\Model\Media\Entity\Id;
 use App\Model\Media\Entity\Media;
 use App\Model\Media\Entity\MediaRepository;
-use Doctrine\ORM\EntityManagerInterface;
 
 class Handler
 {
 
 	/**
-	 * @var EntityManagerInterface
+	 * @var Flusher
 	 */
-	protected $em;
+	protected $flusher;
 	/**
 	 * @var MediaRepository
 	 */
 	protected $medias;
 
-	public function __construct(EntityManagerInterface $em, MediaRepository $medias)
+	public function __construct(Flusher $flusher, MediaRepository $medias)
 	{
-		$this->em = $em;
+		$this->flusher = $flusher;
 		$this->medias = $medias;
 	}
 
@@ -37,6 +37,6 @@ class Handler
 			\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $command->publishingDate->format('Y-m-d H:i:s')),
 			$command->budget
 		));
-		$this->em->flush();
+		$this->flusher->flush();
 	}
 }

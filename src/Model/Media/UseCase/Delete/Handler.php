@@ -2,25 +2,29 @@
 
 namespace App\Model\Media\UseCase\Delete;
 
-use Doctrine\ORM\EntityManagerInterface;
+use App\Model\Flusher;
+use App\Model\Media\Entity\MediaRepository;
 
 class Handler
 {
-
 	/**
-	 * @var EntityManagerInterface
+	 * @var Flusher
 	 */
-	protected $em;
+	protected $flusher;
+	/**
+	 * @var MediaRepository
+	 */
+	protected $medias;
 
-	public function __construct(EntityManagerInterface $em)
+	public function __construct(Flusher $flusher, MediaRepository $medias)
 	{
-
-		$this->em = $em;
+		$this->flusher = $flusher;
+		$this->medias = $medias;
 	}
 
 	public function handle(Command $command)
 	{
-		$this->em->remove($command->media);
-		$this->em->flush();
+		$this->medias->remove($command->media);
+		$this->flusher->flush();
 	}
 }

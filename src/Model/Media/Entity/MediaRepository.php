@@ -61,4 +61,9 @@ class MediaRepository
 
 		return $this->paginator->paginate($qb, $page, $limit);
 	}
+
+	public function remove(Media $media): void
+	{
+		$this->em->remove($media);
+	}
 }

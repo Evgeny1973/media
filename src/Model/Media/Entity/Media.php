@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  *      @ORM\Index(columns={"media_name"})
  *	 })
  */
-
 class Media
 {
 	/**
@@ -109,4 +108,12 @@ class Media
 		return $this->date;
 	}
 
+	public function edit(string $mediaName, string $companyName, \DateTimeImmutable $publishingDate, ?int $budget = null)
+	{
+		$this->mediaName = $mediaName;
+		$this->companyName = $companyName;
+		$this->publishingDate = $publishingDate;
+		$this->date = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Moscow'));
+		$this->budget = $budget;
+	}
 }

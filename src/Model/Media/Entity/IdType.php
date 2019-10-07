@@ -14,7 +14,7 @@ class IdType extends GuidType
 		return self::NAME;
 	}
 
-	public function requiresSQLCommentHint(AbstractPlatform $platform)
+	public function requiresSQLCommentHint(AbstractPlatform $platform): bool
 	{
 		return true;
 	}
@@ -28,5 +28,4 @@ class IdType extends GuidType
 	{
 		return $value instanceof Id ? $value->getValue() : $value;
 	}
-
 }

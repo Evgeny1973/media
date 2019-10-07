@@ -16,6 +16,7 @@ class Command
 	 * @Assert\NotBlank()
 	 */
 	public $mediaName;
+	
 	public $budget;
 
 	/**

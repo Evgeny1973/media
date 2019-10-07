@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Media\UseCase\Create;
+namespace App\Model\Media\UseCase\Update;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -28,10 +28,10 @@ class Form extends AbstractType
 				'label' => 'Издание',
 			])
 			->add('publishingDate', DateType::class, [
-				'label' => 'Дата публикации',
+				'label'  => 'Дата публикации',
 				'widget' => 'single_text',
-				'html5' => false,
-				'attr' => ['class' => 'js-datepicker', 'autocomplete' => 'off'],
+				'html5'  => false,
+				'attr'   => ['class' => 'js-datepicker', 'autocomplete' => 'off'],
 			])
 			->add('budget', TextType::class, [
 				'label' => 'Бюджет',
