@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="medias", indexes={
  * 		@ORM\Index(columns={"date"}),
  *      @ORM\Index(columns={"media_name"})
- *	 })
+ *     })
  */
 class Media
 {
@@ -50,14 +50,33 @@ class Media
 	 */
 	private $date;
 
-	public function __construct(Id $id, string $mediaName, string $companyName, \DateTimeImmutable $publishingDate, ?int $budget = null)
-	{
+	/**
+	 * @ORM\Embedded(class=Format::class, columnPrefix=false)
+	 * @var Format
+	 */
+	private $format;
+
+	/**
+	 * @ORM\Embedded(class=Price::class, columnPrefix=false)
+	 * @var Price
+	 */
+	private $price;
+
+	public function __construct(
+		Id $id,
+		string $mediaName,
+		string $companyName,
+		\DateTimeImmutable $publishingDate,
+		Format $format,
+		Price $price
+	) {
 		$this->id = $id;
 		$this->mediaName = $mediaName;
 		$this->companyName = $companyName;
 		$this->publishingDate = $publishingDate;
 		$this->date = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Moscow'));
-		$this->budget = $budget;
+		$this->format = $format;
+		$this->price = $price;
 	}
 
 	/**
@@ -108,8 +127,28 @@ class Media
 		return $this->date;
 	}
 
-	public function edit(string $mediaName, string $companyName, \DateTimeImmutable $publishingDate, ?int $budget = null)
+	/**
+	 * @return Format
+	 */
+	public function getFormat(): Format
 	{
+		return $this->format;
+	}
+
+	/**
+	 * @return Price
+	 */
+	public function getPrice(): Price
+	{
+		return $this->price;
+	}
+
+	public function edit(
+		string $mediaName,
+		string $companyName,
+		\DateTimeImmutable $publishingDate,
+		?int $budget = null
+	) {
 		$this->mediaName = $mediaName;
 		$this->companyName = $companyName;
 		$this->publishingDate = $publishingDate;

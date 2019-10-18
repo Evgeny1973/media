@@ -2,7 +2,10 @@
 
 namespace App\Model\Media\UseCase\Create;
 
+use App\Model\Media\Entity\Format;
+use App\Model\Media\Entity\Price;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,8 +36,17 @@ class Form extends AbstractType
 				'html5' => false,
 				'attr' => ['class' => 'js-datepicker', 'autocomplete' => 'off'],
 			])
-			->add('budget', TextType::class, [
-				'label' => 'Бюджет',
+			->add('price', ChoiceType::class, [
+				'choices' => \array_flip(Price::toArray()),
+				'multiple' => false,
+				'expanded' => true,
+				'label' => 'Стоимость',
+			])
+			->add('format', ChoiceType::class, [
+				'choices' => \array_flip(Format::toArray()),
+				'multiple' => false,
+				'expanded' => true,
+				'label' => 'Формат',
 			]);
 	}
 

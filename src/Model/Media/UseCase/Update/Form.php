@@ -32,9 +32,6 @@ class Form extends AbstractType
 				'widget' => 'single_text',
 				'html5'  => false,
 				'attr'   => ['class' => 'js-datepicker', 'autocomplete' => 'off'],
-			])
-			->add('budget', TextType::class, [
-				'label' => 'Бюджет',
 			]);
 	}
 

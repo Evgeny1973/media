@@ -23,4 +23,7 @@ class Command
 	 * @var \DateTime | null
 	 */
 	public $publishingDate;
+
+	public $price;
+	public $format;
 }

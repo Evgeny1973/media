@@ -3,7 +3,6 @@
 namespace App\Model\Media\UseCase\Update;
 
 use App\Model\Media\Entity\Media;
-use App\Model\Media\Entity\MediaRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class Command

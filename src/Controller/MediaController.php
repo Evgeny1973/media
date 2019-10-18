@@ -11,7 +11,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-
+/**
+ * @Route("/admin")
+ * Class MediaController
+ * @package App\Controller
+ */
 class MediaController extends AbstractController
 {
 	private const PER_PAGE = 8;
